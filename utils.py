@@ -166,8 +166,9 @@ class TemporarilySeededRandom:
         self.stored_np_state = np.random.get_state()
 
         # Set the random seed
-        random.seed(self.seed)
+        random.seed(int(self.seed))
         np.random.seed(self.seed)
+
 
     def __exit__(self, exc_type, exc_value, traceback):
         # Restore the random state
