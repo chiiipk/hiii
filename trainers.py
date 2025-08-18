@@ -158,8 +158,11 @@ class BasicTrainer(object):
         tokenizer_name_or_path = config.model.tokenizer_name_or_path or config.model.name_or_path
         rank0_print(f'Loading tokenizer {tokenizer_name_or_path}')
         self.tokenizer = transformers.AutoTokenizer.from_pretrained(tokenizer_name_or_path, cache_dir=get_local_dir(config.local_dirs))
-        if self.tokenizer.pad_token_id is None:
-            self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
+        if self.tokenizer.pad_token is None:
+            rank0_print("Warning: pad_token is None. Setting pad_token to eos_token.")
+            self.tokenizer.pad_token = self.tokenizer.eos_token
+        # Đảm bảo cả pad_token_id cũng được gán phòng trường hợp nó chưa đồng bộ
+        self.tokenizer.pad_token_id = self.tokenizer.convert_tokens_to_ids(self.tokenizer.pad_token)
 
         data_iterator_kwargs = dict(
             names=config.datasets,
