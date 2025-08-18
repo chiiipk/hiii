@@ -11,7 +11,6 @@ import socket
 import os
 from typing import Dict, Union, Type, List
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def get_open_port():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
