@@ -15,6 +15,7 @@ from typing import Optional, Set
 import resource
 
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 OmegaConf.register_new_resolver("get_local_run_dir", lambda exp_name, local_dirs: get_local_run_dir(exp_name, local_dirs))
 
 
