@@ -9,10 +9,11 @@ pip install -q gdown
 
 # 1. Tải file epoch10.zip từ Google Drive
 # Thay ID bên dưới bằng ID thực tế từ link của bạn
-gdown --id 1YBHFe0p6QdZFqmKjVFCVYVIiYJqZHU3O -O epoch10.zip
+gdown --id 1YBHFe0p6QdZFqmKjVFCVYVIiYJqZHU3O -O epoch10.zip --quiet
 
 # 2. Giải nén file zip
-unzip -q epoch10.zip
+unzip -o epoch10.zip
+ls epoch10/
 
 # =================================================================
 # === CÁC THAM SỐ BẠN CÓ THỂ THAY ĐỔI ===
