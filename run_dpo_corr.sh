@@ -43,7 +43,7 @@ echo "Bắt đầu huấn luyện DPO cho mô hình tại: ${SFT_MODEL_DIR}"
 echo "Sử dụng bộ dữ liệu: ${DATASET_NAME}"
 echo "Kết quả sẽ được lưu tại thư mục có tên bắt đầu bằng: ${EXP_NAME}"
 
-python3 -u train.py \
+python3 -u /kaggle/working/hiii/train.py \
     model=blank_model \
     model.name_or_path=${SFT_MODEL_DIR} \
     datasets=[${DATASET_NAME}] \
