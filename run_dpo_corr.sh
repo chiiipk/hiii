@@ -20,7 +20,7 @@ ls epoch10/
 # =================================================================
 
 # 1. Đường dẫn đến mô hình SFT của bạn
-export SFT_MODEL_DIR="./epoch10"
+export SFT_MODEL_DIR="/kaggle/working/epoch10"
 
 # 2. Tên bộ dữ liệu sở thích (các lựa chọn: 'hh', 'shp', 'se')
 export DATASET_NAME="hh"
