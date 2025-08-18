@@ -1,0 +1,14 @@
+- model=blank_model
+- model.name_or_path=./epoch10
+- datasets=[hh]
+- loss=dpo
+- loss.beta=0.1
+- exp_name=gpt2_kd_dpo_on_hh
+- batch_size=2
+- eval_batch_size=16
+- gradient_accumulation_steps=4
+- lr=2e-5
+- n_epochs=1
+- trainer=BasicTrainer
+- eval_every=200
+- sample_during_eval=false
