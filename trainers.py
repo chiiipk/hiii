@@ -292,6 +292,10 @@ class BasicTrainer(object):
 
         for batch in self.train_iterator:
             #### BEGIN EVALUATION ####
+            if not batch or 'chosen_input_ids' not in batch or batch['chosen_input_ids'].numel() == 0:
+                rank0_print(f"!!! CẢNH BÁO: Bỏ qua batch huấn luyện số {batch_idx} vì nó rỗng hoặc không hợp lệ.")
+                # Bỏ qua batch bị lỗi này và tiếp tục với batch tiếp theo
+                continue
             if self.example_counter % self.config.eval_every == 0 and (self.example_counter > 0 or self.config.do_first_eval):
                 rank0_print(f'Running evaluation after {self.example_counter} train examples')
                 self.policy.eval()
