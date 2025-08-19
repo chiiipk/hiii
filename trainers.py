@@ -365,7 +365,7 @@ class BasicTrainer(object):
                 global_microbatch = slice_and_move_batch_for_device(batch, microbatch_idx, self.config.gradient_accumulation_steps, self.rank)
                 local_microbatch = slice_and_move_batch_for_device(global_microbatch, self.rank, self.world_size, self.rank)
                 if not local_microbatch or 'chosen_input_ids' not in local_microbatch or local_microbatch['chosen_input_ids'].numel() == 0:
-                    rank0_print(f"!!! CẢNH BÁO: Bỏ qua microbatch rỗng tại batch {batch_idx}, microbatch {microbatch_idx}.")
+                    rank0_print(f"!!! CẢNH BÁO: Bỏ qua microbatch rỗng tại batch {self.batch_counter}, microbatch {microbatch_idx}.")
                     continue
                 loss, metrics = self.get_batch_metrics(local_microbatch, self.config.loss, train=True)
                 (loss / self.config.gradient_accumulation_steps).backward()
