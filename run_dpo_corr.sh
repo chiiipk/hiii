@@ -56,7 +56,7 @@ python3 -u /kaggle/working/hiii/train.py \
     lr=${LR} \
     n_epochs=${EPOCHS} \
     trainer=BasicTrainer \
-    eval_every=1000 \
+    eval_every=4000 \
     sample_during_eval=false
 
 echo "Hoàn thành!"
