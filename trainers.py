@@ -143,14 +143,14 @@ def concatenated_inputs(batch: Dict[str, Union[List, torch.LongTensor]]) -> Dict
 
 
 class BasicTrainer(object):
-    def __init__(self, policy: nn.Module, config: DictConfig, seed: int, run_dir: str, reference_model: Optional[nn.Module] = None, rank: int = 0, world_size: int = 1):
+    def __init__(self, policy: nn.Module, config: DictConfig, seed: int, run_dir: str, reference_model: Optional[nn.Module] = None, : int = 0, world_size: int = 1):
         """A trainer for a language model, supporting either SFT or DPO training.
            
            If multiple GPUs are present, naively splits the model across them, effectively
            offering N times available memory, but without any parallel computation.
         """
         self.seed = seed
-        self.rank = rank
+        self. = 
         self.world_size = world_size
         self.config = config
         self.run_dir = run_dir
@@ -292,10 +292,6 @@ class BasicTrainer(object):
 
         for batch in self.train_iterator:
             #### BEGIN EVALUATION ####
-            if not batch or 'chosen_input_ids' not in batch or batch['chosen_input_ids'].numel() == 0:
-                rank0_print(f"!!! CẢNH BÁO: Bỏ qua batch huấn luyện số {batch_idx} vì nó rỗng hoặc không hợp lệ.")
-                # Bỏ qua batch bị lỗi này và tiếp tục với batch tiếp theo
-                continue
             if self.example_counter % self.config.eval_every == 0 and (self.example_counter > 0 or self.config.do_first_eval):
                 rank0_print(f'Running evaluation after {self.example_counter} train examples')
                 self.policy.eval()
@@ -367,6 +363,9 @@ class BasicTrainer(object):
             for microbatch_idx in range(self.config.gradient_accumulation_steps):
                 global_microbatch = slice_and_move_batch_for_device(batch, microbatch_idx, self.config.gradient_accumulation_steps, self.rank)
                 local_microbatch = slice_and_move_batch_for_device(global_microbatch, self.rank, self.world_size, self.rank)
+                if not local_microbatch or 'chosen_input_ids' not in local_microbatch or local_microbatch['chosen_input_ids'].numel() == 0:
+                    rank0_print(f"!!! CẢNH BÁO: Bỏ qua microbatch rỗng tại batch {batch_idx}, microbatch {microbatch_idx}.")
+                    continue
                 loss, metrics = self.get_batch_metrics(local_microbatch, self.config.loss, train=True)
                 (loss / self.config.gradient_accumulation_steps).backward()
 
