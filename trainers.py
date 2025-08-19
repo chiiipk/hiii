@@ -150,7 +150,8 @@ class BasicTrainer(object):
            offering N times available memory, but without any parallel computation.
         """
         self.seed = seed
-        self. = 
+        self.rank = rank
+
         self.world_size = world_size
         self.config = config
         self.run_dir = run_dir
