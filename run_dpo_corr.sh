@@ -32,7 +32,7 @@ export EXP_NAME="gpt2_kd_dpo_on_hh"
 export LR=2e-5
 export BETA=0.1
 export EPOCHS=1
-export BATCH_SIZE=2
+export BATCH_SIZE=4
 export GRAD_ACCUMULATION=4
 
 # =================================================================
